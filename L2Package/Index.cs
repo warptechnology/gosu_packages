@@ -1,6 +1,9 @@
 ﻿
 namespace L2Package
 {
+    /// <summary>
+    /// Compact integer. 1-5 bytes.
+    /// </summary>
     public class Index
     {
         public static implicit operator int(Index i)
