@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gosu_Packages_RE", "Gosu_Packages_init\Gosu_Packages_RE.csproj", "{F1E63CAE-33C2-4A3E-BAD9-31E3FF5C6492}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2Package", "L2Package\L2Package.csproj", "{A2601322-0E61-4694-B9AA-5C64C5A5783F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "L2PackageTests", "L2PackageTests\L2PackageTests.csproj", "{400D80BB-8B8C-4E2C-880A-DA7BBD892E64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E63CAE-33C2-4A3E-BAD9-31E3FF5C6492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E63CAE-33C2-4A3E-BAD9-31E3FF5C6492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E63CAE-33C2-4A3E-BAD9-31E3FF5C6492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E63CAE-33C2-4A3E-BAD9-31E3FF5C6492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2601322-0E61-4694-B9AA-5C64C5A5783F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2601322-0E61-4694-B9AA-5C64C5A5783F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2601322-0E61-4694-B9AA-5C64C5A5783F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2601322-0E61-4694-B9AA-5C64C5A5783F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{400D80BB-8B8C-4E2C-880A-DA7BBD892E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{400D80BB-8B8C-4E2C-880A-DA7BBD892E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{400D80BB-8B8C-4E2C-880A-DA7BBD892E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{400D80BB-8B8C-4E2C-880A-DA7BBD892E64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
