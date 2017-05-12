@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Body\IPackageReader.cs" />
     <Compile Include="Body\ObjectFlags.cs" />
+    <Compile Include="Body\Property.cs" />
     <Compile Include="DataStructures\Actor.cs" />
     <Compile Include="DataStructures\Box.cs" />
     <Compile Include="DataStructures\Brush.cs" />

@@ -63,7 +63,7 @@ namespace L2Package
             get
             {
                 int val = 0;
-                val = (Value & 0x70) >> 3; // 0 11 00 00
+                val = (Value & 0x70) >> 4; // 0 111 0000
 
                 return val < 5 ? SizeValues[val]:0;
             }
@@ -75,8 +75,22 @@ namespace L2Package
         {
             get
             {
-                return (Value & 0x70) >> 3 == 5;
+                return (Value & 0x70) >> 4 == 5;
                 
+            }
+        }
+        /// <summary>
+        /// Returns the value of the specified bit
+        /// </summary>
+        /// <param name="i">Bit index</param>
+        /// <returns>Bit value as boolean</returns>
+        public bool this[int i]
+        {
+            get
+            {
+                if (i < 0 || i > 7)
+                    throw new IndexOutOfRangeException("Bits in byte can only be indexed 0-7!");
+                return (Value & (0x01 << i)) > 0;
             }
         }
 
@@ -87,7 +101,7 @@ namespace L2Package
         {
             get
             {
-                return (Value & 0x70) >> 3 == 6;
+                return (Value & 0x70) >> 4 == 6;
             }
         }
 
@@ -98,7 +112,7 @@ namespace L2Package
         {
             get
             {
-                return (Value & 0x70) >> 3 == 7;
+                return (Value & 0x70) >> 4 == 7;
             }
         }
         /// <summary>
@@ -108,7 +122,7 @@ namespace L2Package
         {
             get
             {
-                return (Value & 0x80) > 0;
+                return (Value & 0x80) > 0 && PropertyType.BooleanProperty != Type;
             }
         }
 

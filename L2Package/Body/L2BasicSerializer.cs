@@ -44,21 +44,21 @@ namespace L2Package
 
         public L2BasicSerializer()
         {
-            //TODO: Пребито гвоздями. Установить на шарниры.
+            //TODO: Прbбито гвоздями. Установить на шарниры когда разберусь с десериализацией.
             TypeStrings = new Dictionary<string, Type>()
             {
                 { "StaticMeshActor", typeof(StaticMeshActor) }
             };
             Factories = new Dictionary<Type, Factory>()
             {
-
+                { typeof(StaticMeshActor), DeserializeStaticMeshActor }
             };
         }
         public UObject Deserialize(Export Exp)
         {
-            UObject Object = new UObject();
+            
             Type TypeOfObject = GetExportClass(Exp);
-
+            UObject Object = Factories[TypeOfObject](Bytes, Exp.SerialOffset, Exp.SerialSize);
             return Object;
         }
 
@@ -74,7 +74,7 @@ namespace L2Package
 
         private delegate UObject Factory(byte[] b, int offset, int sz);
         Dictionary<Type, Factory> Factories { set; get; }
-        
+
         StaticMeshActor DeserializeStaticMeshActor(byte[] Bs, int offset, int Size)
         {
             int Position = offset + 28;
@@ -82,16 +82,19 @@ namespace L2Package
             RO.Header = new byte[15];
             Array.Copy(Bs, Position, RO.Header, 0, 15);
             Position += 15;
-            while(Position < offset + 28 + Size)
+            Property Pr = null;
+            do
             {
                 Property Prop = new Property(Bs, Position);
                 RO.Add(Prop);
                 Position += Prop.Size;
             }
+            while (Pr != null && NameTable[Pr.NameTableRef] != "None"); //удобно пипиец...
             
+
             return new StaticMeshActor();
         }
-        
+
     }
     internal enum PropertyTypes
     {
@@ -115,6 +118,4 @@ namespace L2Package
         otBuffer = otExtendedValue | 0,
         otWord = otExtendedValue | 1,
     }
-    class A { int x; }
-    class B : A{ int y; }
 }

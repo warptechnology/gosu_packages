@@ -9,11 +9,11 @@ namespace L2Package
         Import this[int i] { get; }
         Import this[Index i] { get; }
 
-        int Count { get; }
-        bool IsSynchronized { get; }
-        object SyncRoot { get; }
+        //int Count { get; }
+        //bool IsSynchronized { get; }
+        //object SyncRoot { get; }
 
-        void CopyTo(Array array, int index);
-        IEnumerator GetEnumerator();
+        //void CopyTo(Array array, int index);
+        //IEnumerator GetEnumerator();
     }
 }

@@ -7,72 +7,7 @@ using System.Threading.Tasks;
 
 namespace L2Package
 {
-    /// <summary>
-    /// Property of an object.
-    /// </summary>
-    public class Property
-    {
-        /// <summary>
-        /// Property name. (Location, rotation, size etc.) 
-        /// Index referance to a NameTable
-        /// </summary>
-        public Index NameTableRef { set; get; }
-        /// <summary>
-        /// Type of a property. (Array, struct, class, vector, etc.)
-        /// </summary>
-        public PropertyType Type { set; get; }
-        /// <summary>
-        /// Deserialized value of a property
-        /// </summary>
-        public object Value { set; get; }
-        /// <summary>
-        /// Serial size of a property.
-        /// </summary>
-        public int Size { get; internal set; }
-        /// <summary>
-        /// if PropertyType is PropertyType.StructProperty, then it must have a name
-        /// </summary>
-        public string StructNameIfAStruct { get; set; }
-
-        /// <summary>
-        /// Deserializes a Property from bytes of package
-        /// </summary>        
-        /// <param name="cache">Decrypted bytes of a package. Use PackageReader to read and decrypt it.</param>
-        /// <param name="Offset">Offset in bytes within a package file</param>
-        public Property(byte[] Cache, int Offset)
-        {
-            int Position = Offset;
-            NameTableRef = new Index(Cache, Position);
-            Position += NameTableRef.Size;            
-            InfoByte ib = new InfoByte() { Value = Cache[Position] };
-            Position++;
-            Type = ib.Type;
-            
-            int ValueSize = 0;
-            if(ib.Size > 0)
-            {
-                ValueSize = ib.Size;
-            }
-            else
-            {
-                if (ib.ByteSizeFollows) { ValueSize = (int)Cache[Position]; Position++; }
-                if (ib.WordSizeFollows)
-                {
-                    ValueSize = (int)BitConverter.ToUInt16(Cache, Position);
-                    Position += 2;
-                }
-                if (ib.DwordSizeFollows)
-                {
-                    ValueSize = (int)BitConverter.ToUInt32(Cache, Position);
-                    Position += 4;
-                }
-            }
-            if (ib.Type == PropertyType.StructProperty) throw new NotImplementedException();
-            if (ib.IsArray) throw new NotImplementedException();
-             
-        }
-
-    }
+    
     /// <summary>
     /// A collection of properties of an object, including Name, flags, etc.
     /// </summary>
@@ -186,6 +121,7 @@ namespace L2Package
         RotatorProperty = 0x0C, // Unknown
         StrProperty = 0x0D, // INDEX length ASCIIZ text Length field includes null terminator.
         MapProperty = 0x0E, // Unknown
-        FixedArrayProperty = 0x0F // Unknown
+        FixedArrayProperty = 0x0F, // Unknown
+        None = 0xFF
     }
 }

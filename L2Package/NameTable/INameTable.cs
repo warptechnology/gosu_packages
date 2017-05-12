@@ -9,12 +9,12 @@ namespace L2Package
         string this[int index] { get; set; }
         string this[Index index] { get; set; }
 
-        int Count { get; }
-        bool IsSynchronized { get; }
-        object SyncRoot { get; }
+        //int Count { get; }
+        //bool IsSynchronized { get; }
+        //object SyncRoot { get; }
 
-        void CopyTo(Array array, int index);
-        IEnumerator GetEnumerator();
+        //void CopyTo(Array array, int index);
+        //IEnumerator GetEnumerator();
         int IndexOf(string needle);
     }
 }

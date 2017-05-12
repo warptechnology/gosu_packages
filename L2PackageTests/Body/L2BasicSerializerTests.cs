@@ -67,15 +67,18 @@ namespace L2Package.Tests
                 //Alloc
                 IUnrealSerializer Ser = new L2BasicSerializer();
                 Ser.Initialize(header, NameTable, ExportTable, ImportTable, pf.Bytes);
-                string TestName = "StaticMeshActor1";
+                string TestName = "StaticMeshActor0";
                 int Index = NameTable.IndexOf(TestName);
                 Export Exp = ExportTable.Find(Index);
                 //Act
                 UObject obj = Ser.Deserialize(Exp);
+                StaticMeshActor sma = obj as StaticMeshActor;
                 //Assert                
-                Assert.IsTrue(obj.name == TestName);
-                
-
+                Assert.IsTrue(sma.name == TestName);
+                Assert.AreEqual(sma.location.X, -83112.00d);
+                Assert.AreEqual(sma.location.Y, 111360.00d);
+                Assert.AreEqual(sma.location.Z, -5154.00d);
+                Assert.AreEqual(sma.static_mesh.index, -459);
             }
             catch (Exception ex)
             {

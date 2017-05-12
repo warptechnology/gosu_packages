@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Body\L2BasicSerializerTests.cs" />
     <Compile Include="Body\L2PackageTests.cs" />
+    <Compile Include="Body\PropertyTests.cs" />
     <Compile Include="ExportTableTests.cs" />
     <Compile Include="HeaderTests.cs" />
     <Compile Include="ImportTableTests.cs" />

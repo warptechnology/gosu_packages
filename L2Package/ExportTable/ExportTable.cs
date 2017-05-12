@@ -131,6 +131,9 @@ namespace L2Package
         }
         private List<Export> EntryTable { set; get; }
 
+        /// <summary>
+        /// No. Of objects contained in ExportTable
+        /// </summary>
         public int Count
         {
             get
@@ -154,22 +157,39 @@ namespace L2Package
                 return this;
             }
         }
-        
+        /// <summary>
+        /// Copies all of Export objects in this instance of ExportTable
+        /// to a specified position in an array.
+        /// </summary>
+        /// <param name="array">Destination array</param>
+        /// <param name="index">Destination index</param>
         public void CopyTo(Array array, int index)
         {
             foreach (Export item in EntryTable)
                 array.SetValue(item, index++);
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through an ExportTable.
+        /// </summary>
+        /// <returns>ExportTableEnumerator<Export></returns>
         public IEnumerator<Export> GetEnumerator()
         {
             return new ExportTableEnumerator<Export>(EntryTable);
         }
-
+        /// <summary>
+        /// Returns an enumerator that iterates through an ExportTable.
+        /// </summary>
+        /// <returns>ExportTableEnumerator<Export></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new ExportTableEnumerator<Export>(EntryTable);
         }
+        /// <summary>
+        /// Compact-int indexer for ExportTable
+        /// </summary>
+        /// <param name="index">Position in ExportTable</param>
+        /// <returns>Export record for specified index</returns>
         public Export this[Index index]
         {
             get
@@ -177,6 +197,11 @@ namespace L2Package
                 return this[index.Value];
             }
         }
+        /// <summary>
+        /// Integer indexer for ExportTable
+        /// </summary>
+        /// <param name="index">Position in ExportTable</param>
+        /// <returns>Export record for specified index</returns>
         public Export this[int index]
         {
             get
@@ -186,18 +211,43 @@ namespace L2Package
                 return EntryTable[index];
             }
         }
-
+        /// <summary>
+        /// Searches for the Export record with specified NameTable reference and returns 
+        /// the index of its first occurrence in an ExportTable.
+        /// </summary>
+        /// <param name="NameTableIndex">Index of a string in a NameTable</param>
+        /// <returns>returns 
+        /// The index of first occurrence in an ExportTable
+        /// </returns>
         public int IndexOf(int NameTableIndex)
         {
             return EntryTable.FindIndex(N => N.NameTableRef.Value == NameTableIndex);
         }
-
-        public List<Export> FindAll(Func<Export, bool> pre)
+        /// <summary>
+        /// Searches for the Export record with specified predicate and returns 
+        /// all objects which sutisfy a predicate condition in an ExportTable.
+        /// </summary>
+        /// <param name="pre">Predicate for Export objects</param>
+        /// <returns>returns 
+        /// List of Export records which sutisfy a predicate.
+        /// </returns>
+        public IEnumerable<Export> FindAll(Func<Export, bool> pre)
         {
             List<Export> Ex = new List<Export>();
             Ex.AddRange(EntryTable.Where(pre));
             return Ex;
         }
+        /// <summary>
+        /// Searches for the Export record with specified NameTable reference and returns 
+        /// that object.
+        /// </summary>
+        /// <param name="NameTableReference">Reference to the NameTable of desired object</param>
+        /// <returns>returns 
+        /// Export object.
+        /// </returns>
+        /// <example>
+        /// Export Exp = ExportTable.Find(NameTable.IndexOf("StaticMeshActor1"));
+        /// </example>
         public Export Find(int NameTableReference)
         {
             foreach (Export Ex in EntryTable)

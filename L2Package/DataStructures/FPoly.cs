@@ -11,7 +11,7 @@
         public int PolyFlags;                  // FPoly & Bsp poly bit flags (PF_).
         public Index Actor;                    // Brush where this originated, or NULL.
         public Index Texture;                  // Texture map.
-        public FName ItemName;                 // Item name.
+        //public FName ItemName;                 // Item name.
         public int NumVertices;                // Number of vertices.
         public int iLink;                      // iBspSurf, or brush fpoly index of first identical polygon, or MAXWORD.
         public int iBrushPoly;                 // Index of editor solid's polygon this originated from.

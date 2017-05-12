@@ -9,14 +9,14 @@ namespace L2Package
         Export this[int index] { get; }
         Export this[Index index] { get; }
 
-        int Count { get; }
-        bool IsSynchronized { get; }
-        object SyncRoot { get; }
+        //int Count { get; }
+        //bool IsSynchronized { get; }
+        //object SyncRoot { get; }
 
-        void CopyTo(Array array, int index);
+        //void CopyTo(Array array, int index);
         Export Find(int NameTableReference);
-        List<Export> FindAll(Func<Export, bool> pre);
-        IEnumerator<Export> GetEnumerator();
+        IEnumerable<Export> FindAll(Func<Export, bool> pre);
+        //IEnumerator<Export> GetEnumerator();
         int IndexOf(int NameTableIndex);
     }
 }
