@@ -9,9 +9,12 @@ using System.IO;
 
 namespace L2Package
 {
+
+    /// <summary>
+    /// Serializer for Lineage 2 packages
+    /// </summary>
     internal class L2BasicSerializer : IUnrealSerializer
     {
-
         IHeader Header { set; get; }
         INameTable NameTable { set; get; }
         IExportTable ExportTable { set; get; }
@@ -19,7 +22,15 @@ namespace L2Package
 
         byte[] Bytes { set; get; }
         private Dictionary<string, Type> TypeStrings;
-
+        /// <summary>
+        /// Initializing func for Serializer. 
+        /// </summary>
+        /// <param name="H">Header of the package</param>
+        /// <param name="NT">NameTable of package.</param>
+        /// <param name="ET">ExportTable of package.</param>
+        /// <param name="IT">ImportTable of Package</param>
+        /// <param name="body">Readed and decrypted bytes of package. </param>
+        /// <seealso cref="L2Package.PackageReader"/>
         public void Initialize(IHeader H, INameTable NT, IExportTable ET, IImportTable IT, byte[] body)
         {
             Header = H;

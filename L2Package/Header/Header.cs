@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace L2Package
 {
+    /// <summary>
+    /// Default header of the package file
+    /// </summary>
     public class Header : IHeader
     {
         public Header() { }
+        /// <summary>
+        /// Deserializes header from decrypted bytes.
+        /// </summary>
+        /// <param name="PackageBytes">Decrypted bytes of package file. Use Reader to decrypt</param>
         public Header(byte[] PackageBytes)
         {
 
@@ -73,6 +80,9 @@ namespace L2Package
         private int generationCount;
         private List<GenerationInfo> generations;
 
+        /// <summary>
+        /// Always: “0x9E2A83C1”; use this to verify that you indeed try to read an Unreal-Package
+        /// </summary>
         public int Signature
         {
             get
@@ -85,6 +95,11 @@ namespace L2Package
                 signature = value;
             }
         }
+        /// <summary>
+        /// Version of the file-format; 
+        /// Unreal1 uses mostly 61-63, UT 67-69; 
+        /// However note that quite a few packages are in use with UT that have Unreal1 versions. 
+        /// </summary>
         public short PackageVersion
         {
             get
@@ -97,6 +112,9 @@ namespace L2Package
                 packageVersion = value;
             }
         }
+        /// <summary>
+        /// This is the license number. Different for each game.
+        /// </summary>
         public short LicenseMode
         {
             get
@@ -109,6 +127,10 @@ namespace L2Package
                 licenseMode = value;
             }
         }
+        /// <summary>
+        /// Global package flags, i.e. if a package may be downloaded from a game server etc; 
+        /// described in the appendix
+        /// </summary>
         public int PackageFlags
         {
             get
@@ -121,6 +143,9 @@ namespace L2Package
                 packageFlags = value;
             }
         }
+        /// <summary>
+        /// No. Of entries in name-table
+        /// </summary>
         public int NameCount
         {
             get
@@ -133,6 +158,9 @@ namespace L2Package
                 nameCount = value;
             }
         }
+        /// <summary>
+        /// Offset of name-table within the file
+        /// </summary>
         public int NameOffset
         {
             get
@@ -145,6 +173,9 @@ namespace L2Package
                 nameOffset = value;
             }
         }
+        /// <summary>
+        /// No. Of entries in export-table
+        /// </summary>
         public int ExportCount
         {
             get
@@ -157,6 +188,9 @@ namespace L2Package
                 exportCount = value;
             }
         }
+        /// <summary>
+        /// Offset of export-table within the file
+        /// </summary>
         public int ExportOffset
         {
             get
@@ -169,6 +203,9 @@ namespace L2Package
                 exportOffset = value;
             }
         }
+        /// <summary>
+        /// No. Of entries in import-table
+        /// </summary>
         public int ImportCount
         {
             get
@@ -181,6 +218,9 @@ namespace L2Package
                 importCount = value;
             }
         }
+        /// <summary>
+        /// Offset of import-table within the file
+        /// </summary>
         public int ImportOffset
         {
             get
@@ -193,6 +233,9 @@ namespace L2Package
                 importOffset = value;
             }
         }
+        /// <summary>
+        /// Unique identifier; used for package downloading from servers
+        /// </summary>
         public GUID Guid
         {
             get
@@ -205,6 +248,9 @@ namespace L2Package
                 guid = value;
             }
         }
+        /// <summary>
+        /// No. of enties in generations table
+        /// </summary>
         public int GenerationCount
         {
             get
@@ -217,6 +263,11 @@ namespace L2Package
                 generationCount = value;
             }
         }
+        /// <summary>
+        /// Unknown meaning of “Generation”.
+        /// Seems to be related to
+        /// recompilation.
+        /// </summary>
         public List<GenerationInfo> Generations
         {
             get
@@ -229,10 +280,19 @@ namespace L2Package
                 generations = value;
             }
         }
+
+        /// <summary>
+        /// Unique identifier; used for package downloading from servers
+        /// </summary>
         public struct GUID
         {
             public int A, B, C, D;
         };
+        /// <summary>
+        /// Unknown meaning of “Generation”.
+        /// Seems to be related to
+        /// recompilation.
+        /// </summary>
         public struct GenerationInfo
         {
             public int export_count;

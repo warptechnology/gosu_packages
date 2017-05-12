@@ -6,18 +6,43 @@ using System.Runtime.Serialization;
 
 namespace L2Package
 {
+    /// <summary>
+    /// Every object in the body of the file has a corresponding entry of Export object in Export table, with information like offset within the file, size etc.
+    /// </summary>
     public class Export
     {
+        /// <summary>
+        /// Reference to ImportTable for Class of the object, i.e. ‘Texture’ or ‘Palette’ etc; stored as a ObjectReference
+        /// </summary>
         public Index Class;
+        /// <summary>
+        /// Object Parent; again a ObjectReference
+        /// </summary>
         public Index Super;
+        /// <summary>
+        /// Internal package/group of the object, i.e. ‘Floor’ for floor-textures; ObjectReference
+        /// </summary>
         public int Group;
+        /// <summary>
+        /// The name of the object; an index into the name-table
+        /// </summary>
         public Index NameTableRef;
+        /// <summary>
+        /// Flags for the object
+        /// </summary>
         public int ObjectFlags;
+        /// <summary>
+        /// Total size of the object
+        /// </summary>
         public Index SerialSize;
+        /// <summary>
+        /// Offset of the object; It is >0 if the SerialSize is larger 0. Else it's 0
+        /// </summary>
         public Index SerialOffset;
-        public int HeaderExportOffset;
 
-        public int ExportTableEntryOfset;
+        private int HeaderExportOffset;
+
+        //public int ExportTableEntryOfset;
 
         public Export()
         {
@@ -29,6 +54,12 @@ namespace L2Package
             SerialSize = new Index();
             SerialOffset = new Index();
         }
+        /// <summary>
+        /// Deserialize a single Export instance
+        /// </summary>
+        /// <param name="header">Header of the package.</param>
+        /// <param name="cache">Decrypted bytes of a packagefile. Use Reader to decrypt</param>
+        /// <param name="Offset">Ofset of a serialized Export object in cache</param>
         public Export(IHeader header, byte[] cache, int Offset)
         {
             HeaderExportOffset = header.ExportOffset;
@@ -57,6 +88,11 @@ namespace L2Package
                 ByteOffset += SerialOffset.Size;
             }
         }
+
+
+        /// <summary>
+        /// Serialized size (in bytes).
+        /// </summary>
         public int Size
         {
             get
@@ -70,8 +106,18 @@ namespace L2Package
             }
         }
     }
+    /// <summary>
+    /// The export-table is an index for all objects within the package. 
+    /// Every object in the body of the file has a corresponding entry in this table, 
+    /// with information like offset within the file etc.
+    /// </summary>
     public class ExportTable : IExportTable
     {
+        /// <summary>
+        /// Deserializes ExportTable from package.
+        /// </summary>
+        /// <param name="header">Header of the package.</param>
+        /// <param name="cache">Decrypted bytes of a package. Use Reader to decrypt</param>
         public ExportTable(IHeader header, byte[] cache)
         {
             EntryTable = new List<Export>();

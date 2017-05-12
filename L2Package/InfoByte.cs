@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace L2Package
 {
+    /// <summary>
+    /// Contains information about property
+    /// Bits 0 to 3 is the type
+    /// bits 4 to 6 is the size
+    /// and bit 7 is the array flag
+    /// </summary>
     class InfoByte
     {
         private byte value;
@@ -20,7 +26,9 @@ namespace L2Package
             -2, //   a word follows with real size
             -3  //   an integer follows with real size
         };
-
+        /// <summary>
+        /// Serialized to a single byte value
+        /// </summary>
         public byte Value
         {
             get
@@ -34,6 +42,9 @@ namespace L2Package
             }
         }
 
+        /// <summary>
+        /// Returns atype of property (such as Byte or Vector)
+        /// </summary>
         public PropertyType Type
         {
             get
@@ -43,6 +54,10 @@ namespace L2Package
                 return (PropertyType)val;
             }
         }
+
+        /// <summary>
+        /// Size of a folowing property
+        /// </summary>
         public int Size
         {
             get
@@ -53,6 +68,9 @@ namespace L2Package
                 return val < 5 ? SizeValues[val]:0;
             }
         }
+        /// <summary>
+        /// for properties bigger then 16 bytes Next byte will contain size of property.
+        /// </summary>
         public bool ByteSizeFollows
         {
             get
@@ -61,6 +79,10 @@ namespace L2Package
                 
             }
         }
+
+        /// <summary>
+        /// for properties bigger then 16 bytes Next 2 bytes will contain WORD size of property.
+        /// </summary>
         public bool WordSizeFollows
         {
             get
@@ -68,6 +90,10 @@ namespace L2Package
                 return (Value & 0x70) >> 3 == 6;
             }
         }
+
+        /// <summary>
+        /// for properties bigger then 16 bytes Next 4 byte will contain DWORD size of property.
+        /// </summary>
         public bool DwordSizeFollows
         {
             get
@@ -75,6 +101,9 @@ namespace L2Package
                 return (Value & 0x70) >> 3 == 7;
             }
         }
+        /// <summary>
+        /// If is true byte property folows this infobyte.
+        /// </summary>
         public bool IsArray
         {
             get

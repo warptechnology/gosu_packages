@@ -1,5 +1,8 @@
 ﻿namespace L2Package
 {
+    /// <summary>
+    /// Reader interface
+    /// </summary>
     public interface IPackageReader
     {
         byte[] Bytes { get; set; }

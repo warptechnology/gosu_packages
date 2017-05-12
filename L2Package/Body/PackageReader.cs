@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 
 namespace L2Package
 {
+    /// <summary>
+    /// Reads and decrypts package files
+    /// </summary>
     public class PackageReader : IPackageReader
     {
         public string Path { private set; get; }
+        /// <summary>
+        /// decrypted bytes of a package.
+        /// </summary>
         public byte[] Bytes
         {
             get
@@ -23,6 +29,10 @@ namespace L2Package
                 bytes = value;
             }
         }
+        /// <summary>
+        /// Reads and decrypts package
+        /// </summary>
+        /// <param name="FileName">Path to a packagefile</param>
         public void Read(string FileName)
         {
             ReadFrom(FileName);
@@ -75,10 +85,12 @@ namespace L2Package
             }
         }
         public PackageReader() { }
-        //public PackageReader(string FileName)
-        //{
-        //    ReadFrom(FileName);
-        //}
+        
+        /// <summary>
+        /// Saves package to disk. Not implimented yet.
+        /// </summary>
+        /// <param name="FileName">Path to a target file.</param>
+        /// 
         public void Save(string FileName = "")
         {   
             throw new NotImplementedException();

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Body\IPackageReader.cs" />
+    <Compile Include="Body\ObjectFlags.cs" />
     <Compile Include="DataStructures\Actor.cs" />
     <Compile Include="DataStructures\Box.cs" />
     <Compile Include="DataStructures\Brush.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="DataStructures\UVertex.cs" />
     <Compile Include="ExportTable\ExportTable.cs" />
     <Compile Include="ExportTable\ExportTableEnumerator.cs" />
-    <Compile Include="FName.cs" />
     <Compile Include="DataStructures\FPoly.cs" />
     <Compile Include="DataStructures\FVector.cs" />
     <Compile Include="ExportTable\IExportTable.cs" />

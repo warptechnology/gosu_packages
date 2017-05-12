@@ -10,10 +10,25 @@ namespace L2Package
 {
     internal class Import
     {
-        public Index ClassPackage { set; get; } // Package file in which the class of the object is defined; an index into the name-table
-        public Index ClassName { set; get; } //Class of the object, i.e. ‘Texture’, ‘Palette’, ‘Package’, etc; an index into the name-table
-        public int Package { set; get; } //Reference where the object resides; ObjectReference
-        public Index ObjectName { set; get; } //The name of the object; an index into the name-table
+        /// <summary>
+        /// Package file in which the class of the object is defined; 
+        /// an index into the name-table
+        /// </summary>
+        public Index ClassPackage { set; get; }
+        /// <summary>
+        /// Class of the object, i.e. ‘Texture’, ‘Palette’, ‘Package’, etc; 
+        /// an index into the name-table
+        /// </summary>
+        public Index ClassName { set; get; }
+        /// <summary>
+        /// Reference where the object resides; ObjectReference
+        /// </summary>
+        public int Package { set; get; }
+        /// <summary>
+        /// The name of the object; an index into the name-table
+        /// </summary>
+        public Index ObjectName { set; get; } 
+        
 
         public Import()
         {
@@ -22,6 +37,12 @@ namespace L2Package
             Package = 0;
             ObjectName = new Index();
         }
+        /// <summary>
+        /// Deserializes ImportObject from bytes in package
+        /// </summary>
+        /// <param name="header">Header of a package</param>
+        /// <param name="cache">Decrypted bytes of a package. Use PackageReader to read and decrypt.</param>
+        /// <param name="Offset">Offset in cache</param>
         public Import(IHeader header, byte[] cache, int Offset) : this()
         {
             int ByteOffset = 28 + Offset;
@@ -33,6 +54,9 @@ namespace L2Package
             ByteOffset += 4;
             ObjectName = new Index(cache, header.ImportOffset + ByteOffset);
         }
+        /// <summary>
+        /// Serialized size of Import row in table. (in bytes)
+        /// </summary>
         public int Size
         {
             get
@@ -45,10 +69,29 @@ namespace L2Package
             }
         }
     }
+    /// <summary>
+    /// The third table holds references to objects in external packages. 
+    /// For example, a texture might have a DetailTexture 
+    /// (which makes for the nice structure if have a very close look at a texture). 
+    /// Now, these DetailTextures are all stored in a single package 
+    /// (as they are used by many different textures in different package files). 
+    /// The property of the texture object only needs to store an index into the import-table then 
+    /// as the entry in the import-table already points to the DetailTexture in the other package.
+    /// </summary>
     internal class ImportTable : IImportTable
     {
         private List<Import> EntryTable { set; get; }
 
+
+        /// <summary>
+        /// Searches for an Import record.
+        /// </summary>
+        /// <example>
+        /// //returns Import object for a Class "StaticMeshActor"
+        /// Import Imp = ImportTable.FindByNameRef(NT.IndexOf("StaticMeshActor"));
+        /// </example>
+        /// <param name="Ref"></param>
+        /// <returns>Import record if exists. Othervise returns null</returns>
         public Import FindByNameRef(int Ref)
         {
             foreach (Import item in EntryTable)
@@ -56,12 +99,23 @@ namespace L2Package
                     return item;
             return null;
         }
-
-        public int IndexOf(Import Imp)
+        /// <summary>
+        /// Reports the zero-based index of the first occurrence of a specified Import object within this instance. 
+        /// The method returns -1 if the Import record is not found in this instance.
+        /// </summary>
+        /// <param name="needle">An Import object to look for.</param>
+        /// <returns>
+        /// Positive zero-based index of the first occurrence of a specified Import object.
+        /// -1 if the Import record is not found
+        /// </returns>
+        public int IndexOf(Import needle)
         {
-            return EntryTable.FindIndex(I => I.ObjectName == Imp.ObjectName);
+            return EntryTable.FindIndex(I => I.ObjectName == needle.ObjectName);
         }
 
+        /// <summary>
+        /// No. Of Import records in table.
+        /// </summary>
         public int Count
         {
             get
@@ -86,6 +140,12 @@ namespace L2Package
             }
         }
 
+        /// <summary>
+        /// Deserialises ImportTable from decrypted package.
+        /// </summary>
+        /// <param name="header">Deserialized header of a package.</param>
+        /// <param name="cache">Decrypted bytes of a package.</param>
+        /// <seealso cref="PackageReader"/>
         internal ImportTable(IHeader header, byte[] cache)
         {
             EntryTable = new List<Import>();
@@ -96,23 +156,41 @@ namespace L2Package
                 Offset += EntryTable.Last().Size;
             }
         }
-
+        /// <summary>
+        /// Copies all the elements of the current ImportTable to the 
+        /// specified one-dimensional array starting at the specified destination array index. 
+        /// The index is specified as a 32-bit integer.
+        /// </summary>
+        /// <param name="array">Destination array</param>
+        /// <param name="index">Zero-based starting index in destination array</param>
         public void CopyTo(Array array, int index)
         {
             foreach (Import item in EntryTable)
                 array.SetValue(item, index++);
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through an ImportTable.
+        /// </summary>
+        /// <returns>ImportTableEnumerator<Import></returns>
         public IEnumerator GetEnumerator()
         {
             return new ImportTableEnumerator<Import>(EntryTable);
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through an ImportTable.
+        /// </summary>
+        /// <returns>ImportTableEnumerator<Import></returns>
         IEnumerator<Import> IEnumerable<Import>.GetEnumerator()
         {
             return new ImportTableEnumerator<Import>(EntryTable);
         }
-
+        /// <summary>
+        /// Returns an Import record at specified Compact-int index
+        /// </summary>
+        /// <param name="i">Position in table</param>
+        /// <returns>Import record at specified position</returns>
         public Import this[Index i]
         {
             get
@@ -120,6 +198,11 @@ namespace L2Package
                 return this[i.Value];
             }
         }
+        /// <summary>
+        /// Returns an Import record at specified integer index
+        /// </summary>
+        /// <param name="i">Position in table</param>
+        /// <returns>Import record at specified position</returns>
         public Import this[int i]
         {
             get
@@ -128,7 +211,10 @@ namespace L2Package
             }
         }
     }
-
+    /// <summary>
+    /// An enumerator that iterates through an ImportTable.
+    /// </summary>
+    /// <typeparam name="Import">Import record in ImportTable</typeparam>
     public class ImportTableEnumerator<Import> : IEnumerator<Import>
     {
         private List<Import> EntryTable;
@@ -169,9 +255,6 @@ namespace L2Package
                 return EntryTable[Cursor];
             }
         }
-        /// <summary>
-        /// Does nothing. Just for interface compatability
-        /// </summary>
         public void Dispose()
         {
             return;

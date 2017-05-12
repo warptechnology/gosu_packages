@@ -15,14 +15,31 @@ namespace L2Package
             return new Index() { Value = i };
         }
 
+        /// <summary>
+        /// Int32 representation of a compact int
+        /// </summary>
         public int Value { get; set; }
+        /// <summary>
+        /// Serial size of an object
+        /// </summary>
         public int Size { get; set; }
 
         public Index() { }
+
+        /// <summary>
+        /// Ctor. Reads bytes. Get number of bytes with Size property
+        /// </summary>
+        /// <param name="buff">Bytes to read</param>
+        /// <param name="pos">offset in Buff</param>
         public Index(byte[] buff, int pos)
         {
             this.ReadIndex(buff, pos);
         }
+        /// <summary>
+        /// Reads bytes. Get number of bytes with Size property
+        /// </summary>
+        /// <param name="buff">Bytes to read</param>
+        /// <param name="pos">offset in Buff</param>
         public void ReadIndex(byte[] buff, int pos)
         {
             byte isIndiced = 0x40; // 7th bit
