@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace L2Package
 {
-    internal interface IImportTable : ICollection, IEnumerable<Import>
+    public interface IImportTable : ICollection, IEnumerable<Import>
     {
         Import this[int i] { get; }
         Import this[Index i] { get; }

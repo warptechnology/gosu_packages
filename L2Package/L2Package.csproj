@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -70,13 +71,16 @@
     <Compile Include="DataStructures\Plane.cs" />
     <Compile Include="DataStructures\Sphere.cs" />
     <Compile Include="DataStructures\StaticMeshActor.cs" />
+    <Compile Include="DataStructures\TextureModifyinfo.cs" />
     <Compile Include="DataStructures\UArray.cs" />
     <Compile Include="DataStructures\UColor.cs" />
     <Compile Include="DataStructures\UEExportAttribute.cs" />
     <Compile Include="DataStructures\UModel.cs" />
     <Compile Include="DataStructures\UObject.cs" />
     <Compile Include="DataStructures\UPrimitive.cs" />
+    <Compile Include="DataStructures\UPointRegion.cs" />
     <Compile Include="DataStructures\URotator.cs" />
+    <Compile Include="DataStructures\UScale.cs" />
     <Compile Include="DataStructures\UVector.cs" />
     <Compile Include="DataStructures\UVertex.cs" />
     <Compile Include="ExportTable\ExportTable.cs" />
@@ -95,8 +99,8 @@
     <Compile Include="NameTable\INameTable.cs" />
     <Compile Include="NameTable\NameTable.cs" />
     <Compile Include="Header\Header.cs" />
-    <Compile Include="PropertiesEnumerator.cs" />
-    <Compile Include="RawObject.cs" />
+    <Compile Include="Body\PropertiesEnumerator.cs" />
+    <Compile Include="Body\RawObject.cs" />
     <Compile Include="Body\PackageReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataStructures\UPoly.cs" />

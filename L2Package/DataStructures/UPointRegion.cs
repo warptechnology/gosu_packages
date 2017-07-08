@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace L2Package.DataStructures
 {
-    public class UEExportAttribute : Attribute
+    public class UPointRegion
     {
+        public Index Zone { set; get; }
+        public int iLeaf { set; get; }
+        public byte ZoneNumber { set; get; }
     }
 }

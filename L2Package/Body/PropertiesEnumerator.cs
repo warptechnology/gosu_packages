@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace L2Package
+namespace L2Package.Body
 {
 
     /// <summary>

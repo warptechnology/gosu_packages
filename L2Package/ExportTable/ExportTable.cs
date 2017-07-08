@@ -212,16 +212,16 @@ namespace L2Package
             }
         }
         /// <summary>
-        /// Searches for the Export record with specified NameTable reference and returns 
-        /// the index of its first occurrence in an ExportTable.
+        /// Searches for the specified Export object record and returns 
+        /// the index of its occurrence in an ExportTable.
         /// </summary>
-        /// <param name="NameTableIndex">Index of a string in a NameTable</param>
+        /// <param name="Needle">Export object to search for</param>
         /// <returns>returns 
-        /// The index of first occurrence in an ExportTable
+        /// The index of occurrence in an ExportTable
         /// </returns>
-        public int IndexOf(int NameTableIndex)
+        public int IndexOf(Export Needle)
         {
-            return EntryTable.FindIndex(N => N.NameTableRef.Value == NameTableIndex);
+            return EntryTable.FindIndex(N => N == Needle);
         }
         /// <summary>
         /// Searches for the Export record with specified predicate and returns 
@@ -237,24 +237,7 @@ namespace L2Package
             Ex.AddRange(EntryTable.Where(pre));
             return Ex;
         }
-        /// <summary>
-        /// Searches for the Export record with specified NameTable reference and returns 
-        /// that object.
-        /// </summary>
-        /// <param name="NameTableReference">Reference to the NameTable of desired object</param>
-        /// <returns>returns 
-        /// Export object.
-        /// </returns>
-        /// <example>
-        /// Export Exp = ExportTable.Find(NameTable.IndexOf("StaticMeshActor1"));
-        /// </example>
-        public Export Find(int NameTableReference)
-        {
-            foreach (Export Ex in EntryTable)
-                if (Ex.NameTableRef == NameTableReference)
-                    return Ex;
-            return null;
-        }
+        
     }
     
     internal class WriteToReadOnlyException : InvalidOperationException

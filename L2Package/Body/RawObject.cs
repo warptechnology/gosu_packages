@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L2Package
+namespace L2Package.Body
 {
     
     /// <summary>

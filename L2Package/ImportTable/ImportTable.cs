@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace L2Package
 {
-    internal class Import
+    public class Import
     {
         /// <summary>
         /// Package file in which the class of the object is defined; 

@@ -27,7 +27,8 @@ namespace L2Package.DataStructures
 
         public static bool operator ==(URotator left, URotator right)
         {
-            return left.Pitch == right.Pitch &&
+            return ((object)left != null && (object)right != null) &&
+                left.Pitch == right.Pitch &&
                 left.Yaw == right.Yaw &&
                 left.Roll == right.Roll;
         }

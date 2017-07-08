@@ -14,9 +14,8 @@ namespace L2Package
         //object SyncRoot { get; }
 
         //void CopyTo(Array array, int index);
-        Export Find(int NameTableReference);
         IEnumerable<Export> FindAll(Func<Export, bool> pre);
         //IEnumerator<Export> GetEnumerator();
-        int IndexOf(int NameTableIndex);
+        int IndexOf(Export NameTableIndex);
     }
 }

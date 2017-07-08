@@ -14,7 +14,30 @@ namespace L2Package
         {
             return new Index() { Value = i };
         }
-
+        public static bool operator ==(Index R, Index L)
+        {
+            return R.Value == L.Value;
+        }
+        public static bool operator !=(Index R, Index L)
+        {
+            return R.Value != L.Value;
+        }
+        public static bool operator <(Index R, Index L)
+        {
+            return R.Value < L.Value;
+        }
+        public static bool operator >(Index R, Index L)
+        {
+            return R.Value > L.Value;
+        }
+        public static bool operator <=(Index R, Index L)
+        {
+            return R.Value <= L.Value;
+        }
+        public static bool operator >=(Index R, Index L)
+        {
+            return R.Value >= L.Value;
+        }
         /// <summary>
         /// Int32 representation of a compact int
         /// </summary>
